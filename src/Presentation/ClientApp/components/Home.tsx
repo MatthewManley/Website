@@ -19,7 +19,7 @@ export const Home = () => (
         <header className="bg-primary text-white">
             <div className="container text-center">
                 <h1>Available for Co-op Fall Semester 2018</h1>
-                <p className="lead"><a className="text-white" href="mailto:bob@bob.com">Email Me</a></p>
+                <p className="lead"><a className="text-white" href="/">Email Me</a></p>
             </div>
         </header>
         <Section title="education" isDark={true}>
