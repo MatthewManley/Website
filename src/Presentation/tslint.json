@@ -1,0 +1,20 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:latest", "tslint-react"
+    ],
+    "jsRules": {},
+    "rules": {
+        "interface-name": false,
+        "max-line-length": [true, 200],
+        "quotemark": [true, "double", "jsx-double"],
+        "jsx-no-multiline-js": false,
+        "no-object-literal-type-assertion": false,
+        "no-consecutive-blank-lines": {
+            "severity": "warning"
+        },
+        "jsx-boolean-value": false,
+        "no-submodule-imports": false
+    },
+    "rulesDirectory": []
+}
