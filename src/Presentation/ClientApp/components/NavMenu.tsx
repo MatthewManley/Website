@@ -20,13 +20,19 @@ export const NavMenu = () => (
             <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#about">About</a>
+                        <NavLink exact to={"/"} className="nav-link">
+                            <span className="glyphicon glyphicon-home" /> Home
+                        </NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#education">Education</a>
+                        <NavLink exact to={"/"} className="nav-link">
+                            <span className="glyphicon glyphicon-home" /> Projects
+                        </NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link js-scroll-trigger" href="#experience">Experience</a>
+                        <NavLink exact to={"/"} className="nav-link">
+                            <span className="glyphicon glyphicon-home" /> Contact
+                        </NavLink>
                     </li>
                 </ul>
             </div>

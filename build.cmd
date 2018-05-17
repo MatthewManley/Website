@@ -1,5 +1,5 @@
 cd src/Presentation
 call npm i
-npx webpack --config webpack.config.vendor.js
+call npx webpack --config webpack.config.vendor.js
 cd ../..
 dotnet build %1
