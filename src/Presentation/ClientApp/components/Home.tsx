@@ -21,7 +21,7 @@ export const Home = () => (
             <div className="container text-center">
                 <h1>Available for Co-op Fall Semester 2018</h1>
                 <p className="lead">
-                    <NavLink exact to={"/contact"}>Email Me</NavLink>
+                    <NavLink exact className="text-white" to={"/contact"}>Email Me</NavLink>
                 </p>
             </div>
         </header>
