@@ -1,19 +1,6 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
-
-// I don't like how this is formatted but it is how the template set it up, possibly try to fix it later
-// const Section = ({ title, isDark, children }: { title: string, isDark: boolean, children: Element}) => (
-const Section = ({ title, isDark, children }) => (
-    <section id={title} className={isDark ? "bg-light" : ""}>
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-10 mx-auto">
-                    {children}
-                </div>
-            </div>
-        </div>
-    </section>
-);
+import { Section } from "./Section";
 
 export const Home = () => (
     <>

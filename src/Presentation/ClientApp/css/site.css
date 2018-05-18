@@ -20,6 +20,10 @@ html, body, #react-app {
   height: 100%;
 }
 
+body {
+  overflow: scroll;
+}
+
 #react-app {
   display: flex;
   flex-direction: column;

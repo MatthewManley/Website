@@ -1,7 +1,8 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
     ViewData["Title"] = "Home Page";
 }
-
 
 <environment include="Development">
     <div id="react-app">Loading...</div>
@@ -11,5 +12,8 @@
 </environment>
 
 @section scripts {
+    <script>
+        var reCaptchaSiteKey = "@Configuration["reCaptcha:SiteKey"]";
+    </script>
     <script src="~/dist/main-client.js" asp-append-version="true"></script>
 }

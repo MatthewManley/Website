@@ -14,7 +14,11 @@
             "severity": "warning"
         },
         "jsx-boolean-value": false,
-        "no-submodule-imports": false
+        "no-submodule-imports": false,
+        "ordered-imports": {
+            "severity": "warning"
+        },
+        "no-console":false
     },
     "rulesDirectory": []
 }
