@@ -25,12 +25,12 @@ export const NavMenu = () => (
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink exact to={"/"} className="nav-link">
+                        <NavLink exact to={"/projects"} className="nav-link">
                             <span className="glyphicon glyphicon-home" /> Projects
                         </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink exact to={"/"} className="nav-link">
+                        <NavLink exact to={"/contact"} className="nav-link">
                             <span className="glyphicon glyphicon-home" /> Contact
                         </NavLink>
                     </li>

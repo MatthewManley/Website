@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 
 // I don't like how this is formatted but it is how the template set it up, possibly try to fix it later
 // const Section = ({ title, isDark, children }: { title: string, isDark: boolean, children: Element}) => (
@@ -19,7 +20,9 @@ export const Home = () => (
         <header className="bg-primary text-white">
             <div className="container text-center">
                 <h1>Available for Co-op Fall Semester 2018</h1>
-                <p className="lead"><a className="text-white" href="/">Email Me</a></p>
+                <p className="lead">
+                    <NavLink exact to={"/contact"}>Email Me</NavLink>
+                </p>
             </div>
         </header>
         <Section title="education" isDark={true}>
@@ -177,12 +180,6 @@ export const Home = () => (
                 <li>RHEL</li>
             </ul>
         </Section>
-
-        <footer className="py-5 bg-dark">
-            <div className="container">
-                <p className="m-0 text-center text-white">Last Updated 2018-05-15</p>
-            </div>
-        </footer>
     </>
 );
 

@@ -219,3 +219,5 @@ _Pvt_Extensions
 src/Presentation/ClientApp/dist/
 
 src/Presentation/wwwroot/dist/
+
+src/Presentation/ClientApp/BuildDate\.ts
