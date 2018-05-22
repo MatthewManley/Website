@@ -5,6 +5,7 @@ import Counter from "./components/Counter";
 import FetchData from "./components/FetchData";
 import Home from "./components/Home";
 import { Layout } from "./components/Layout";
+import { Projects } from "./components/Projects";
 import { Wip } from "./components/Wip";
 
 export const routes = (
@@ -13,6 +14,6 @@ export const routes = (
         <Route path="/counter" component={Counter} />
         <Route path="/fetchdata/:startDateIndex?" component={FetchData} />
         <Route path="/contact" component={BoundContact} />
-        <Route path="/projects" component={Wip} />
+        <Route path="/projects" component={Projects} />
     </Layout>
 );
