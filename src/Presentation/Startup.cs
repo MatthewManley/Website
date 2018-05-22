@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Settings;
+using Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 
 namespace Presentation
 {
@@ -24,6 +27,8 @@ namespace Presentation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.Configure<AppSettings>(Configuration);
+            services.AddTransient<IRecaptchaVerifier, RecaptchaVerifier>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

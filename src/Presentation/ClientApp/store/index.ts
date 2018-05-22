@@ -1,10 +1,12 @@
 import * as Counter from "./Counter";
+import * as Email from "./Email";
 import * as WeatherForecasts from "./WeatherForecasts";
 
 // The top-level state object
 export interface ApplicationState {
     counter: Counter.CounterState;
     weatherForecasts: WeatherForecasts.WeatherForecastsState;
+    email: Email.EmailState;
 }
 
 // Whenever an action is dispatched, Redux will update each top-level application state property using
@@ -12,6 +14,7 @@ export interface ApplicationState {
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
     counter: Counter.reducer,
+    email: Email.reducer,
     weatherForecasts: WeatherForecasts.reducer,
 };
 
