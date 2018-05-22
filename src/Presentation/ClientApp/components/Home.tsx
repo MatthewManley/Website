@@ -48,7 +48,7 @@ export const Home = () => (
 
             <h5>UC Revolution Hackathons</h5>
             <p>Participated in three hackathons, creating a <a href="https://devpost.com/software/politweets">live tweet political map</a>, a
-                    <a href="https://devpost.com/software/you-suck-at-musi">music taste rating system via Spotify’s API</a>,
+                    <a href="https://devpost.com/software/you-suck-at-musi"> music taste rating system via Spotify’s API</a>,
                     and a <a href="https://devpost.com/software/wild-compile">C# web-based IDE</a>.</p>
 
             <h5>INTERalliance of Greater Cincinnati TechOlympics</h5>
