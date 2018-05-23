@@ -4,7 +4,7 @@ export enum ServiceResultKinds {
 }
 
 export interface ServiceError {
-    response: Response;
+    response: Response | string;
     kind: ServiceResultKinds.error;
 }
 
