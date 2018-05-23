@@ -1,3 +1,5 @@
+import { ActionCreator } from "react-redux";
+
 export enum ActionTypes {
     SetNumber = "SquareRoot: set number",
     IncrementIterations = "SquareRoot: increment iteractions",
@@ -7,15 +9,18 @@ export enum ActionTypes {
 export interface SetNumberAction {
     type: ActionTypes.SetNumber;
     value: number;
-    guess: number | null;
+    guess: number;
+    numIterations: number;
 }
 
 export interface IncrementIterationAction {
     type: ActionTypes.IncrementIterations;
+    by: number;
 }
 
 export interface DecrementIterationAction {
     type: ActionTypes.DecrementIterations;
+    by: number;
 }
 
 export type KnownAction = SetNumberAction |
@@ -23,11 +28,11 @@ export type KnownAction = SetNumberAction |
     DecrementIterationAction;
 
 export const ActionCreators = {
-    DecrementIteration: () => (dispatch) => {
-        dispatch({type: ActionTypes.DecrementIterations} as DecrementIterationAction);
+    DecrementIteration: (by: number = 1) => (dispatch) => {
+        dispatch({ type: ActionTypes.DecrementIterations, by } as DecrementIterationAction);
     },
-    IncrementIteration: () => (dispatch) => {
-        dispatch({type: ActionTypes.IncrementIterations} as IncrementIterationAction);
+    IncrementIteration: (by: number = 1) => (dispatch) => {
+        dispatch({ type: ActionTypes.IncrementIterations, by } as IncrementIterationAction);
     },
     SetNumber: (value: number) => (dispatch) => {
         dispatch({ type: ActionTypes.SetNumber, value } as SetNumberAction);

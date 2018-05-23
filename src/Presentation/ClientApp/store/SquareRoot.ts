@@ -1,45 +1,44 @@
 import { Action, Reducer } from "redux";
 import { ActionTypes, KnownAction } from "./actions/SquareRootActions";
 
-// -----------------
-// STATE - This defines the type of data maintained in the Redux store.
-
 export interface SquareRootState {
-    value: number | null;
-    iteration: number | null;
-    guess: number | null;
-    answer: number | null;
-    previousAnswer: SquareRootState | null;
+    num: number;
+    currentIteration: number;
+    iterations: number[];
 }
 
-// ----------------
-// REDUCER - For a given state and action, returns the new state. To support time travel, this must not mutate the old state.
+const GenerateNext = (value, guess) => {
+    return ((value / guess) + guess) / 2;
+};
 
-export const reducer: Reducer<SquareRootState> = (state: SquareRootState, action: KnownAction) => {
-    switch (action.type) {
+// Generates a random number between 10 and 100 to two decimal places
+const InitalRandomNumber = () => {
+    return Math.floor((Math.random() * 90 + 10) * 100) / 100;
+};
+
+export const reducer: Reducer<SquareRootState> = (state: SquareRootState, action: Action) => {
+    const knownAction = action as KnownAction;
+    switch (knownAction.type) {
         case ActionTypes.SetNumber: {
-            let guess = action.guess;
-            if (guess === null) {
-                const sqrt = Math.sqrt(action.value);
-                const guess1 = Math.floor(sqrt);
-                const guess2 = Math.ceil(sqrt);
-                const difference1 = Math.abs(sqrt - guess1);
-                const difference2 = Math.abs(sqrt - guess2);
-                guess = (difference2 < difference1) ? guess2 : guess1;
-            }
-
-                return { value: action.value, iteration: 1 } as SquareRootState;
+                const iterations: number[] = [knownAction.guess];
+                for (let i = 0; i++; i < knownAction.numIterations) {
+                    iterations.push(GenerateNext(knownAction.value, iterations[i]));
+                }
+                return { num: knownAction.value, currentIteration: knownAction.numIterations, iterations } as SquareRootState;
         }
         case ActionTypes.IncrementIterations: {
-            return { ...state, iteration: state.iteration + 1 };
+            const currentIteration = state.currentIteration + knownAction.by;
+            const iterations = [...state.iterations];
+            while (iterations.length < currentIteration) {
+                iterations.push(GenerateNext(state.num, iterations[iterations.length - 1]));
+            }
+            return { ...state, currentIteration, iterations } as SquareRootState;
         }
         case ActionTypes.DecrementIterations: {
-            if (state.iteration <= 1) {
-                return { ...state, iteration: 1 };
-            }
-            return { ...state, iteration: state.iteration - 1 } as SquareRootState;
+            const currentIteration = Math.max(state.currentIteration - knownAction.by, 1);
+            return { ...state, currentIteration  } as SquareRootState;
         }
 
     }
-    return state || { value: null, iteration: 1 };
+    return state || { num: InitalRandomNumber(), currentIteration: 0, iterations: [] } as SquareRootState;
 };
