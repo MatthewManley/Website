@@ -6,17 +6,15 @@ import { ApplicationState } from "../store";
 import { ActionCreators as emailActions } from "../store/actions/emailActions";
 import { Section } from "./Section";
 
-const RecaptchaMarkup = ({ siteKey, onValidate }) => (
+declare const reCaptchaSiteKey: string;
+
+const RecaptchaMarkup = ({ siteKey, onValidate }: { siteKey: string, onValidate: (token: string | null) => void }) => (
     <Section title="recaptcha" isDark={false} >
         <h5>I need to make sure your not a robot</h5>
-        {(siteKey !== undefined) ?
-            (<Recaptcha
-                sitekey={siteKey}
-                onChange={onValidate}
-            />)
-            :
-            (<p>Loading reCaptcha...</p>)
-        }
+        <Recaptcha
+            sitekey={siteKey}
+            onChange={onValidate}
+        />
 
     </Section>
 );
@@ -29,43 +27,35 @@ const ContactInfo = ({ email }) => (
 );
 
 const Contact = ({ siteKey, email, onValidate }: { siteKey: string, email: string, onValidate: () => void }) => {
-    if (email !== undefined && email.length > 0) {
+    if (email !== null && email.length > 0) {
         return (<ContactInfo email={email} />);
     } else {
         return (<RecaptchaMarkup siteKey={siteKey} onValidate={onValidate} />);
     }
 };
 
-const getCookie = (name) => {
-    const match = document.cookie.match(new RegExp(name + "=([^;]+)"));
-    if (match) {
-        return match[1];
-    }
-    return null;
-};
-
-const binder = compose<{ siteKey, email, onValidate }, {}>(
+export const BoundContact = compose<{ siteKey, email, onValidate }, {}>(
     connect(
-        (state: ApplicationState) => ({ email: state.email.email, siteKey: state.email.sitekey }),
+        (state: ApplicationState) => ({ email: state.email.email }),
         emailActions,
     ),
     lifecycle({
         componentWillMount() {
             const props: any = this.props;
-            const { email, SetEmail, siteKey, GetSiteKey } = props;
+            const { email, GetEmail } = props;
 
-            if ((email !== undefined && email.length > 0) ||
-                (siteKey !== undefined && siteKey.length > 0)) {
+            if (email !== null && email.length > 0) {
                 return;
             }
-            GetSiteKey();
+            GetEmail();
         },
+    }),
+    withProps({
+        siteKey: (typeof reCaptchaSiteKey === "undefined") ? "" : reCaptchaSiteKey,
     }),
     withHandlers({
-        onValidate: (props: any) => (event) => {
-            props.GetEmail(event);
+        onValidate: ({ GetEmail }: any) => (event) => {
+            GetEmail(event);
         },
     }),
-);
-
-export const BoundContact = binder(Contact);
+)(Contact);

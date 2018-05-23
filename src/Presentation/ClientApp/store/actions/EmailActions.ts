@@ -1,34 +1,23 @@
 export enum ActionTypes {
     Get = "Email: get",
-    Recieved = "Email: recieved",
-    GetSiteKey = "Email: get site key",
-    RecievedSiteKey = "Email: recieved site key",
+    Set = "Email: set",
 }
 
 export interface GetEmailAction {
     type: ActionTypes.Get;
-    code: string;
+    code: string | null;
 }
 
-export interface RecievedEmailAction {
-    type: ActionTypes.Recieved;
+export interface SetEmailAction {
+    type: ActionTypes.Set;
     email: string;
 }
 
-export interface GetSiteKeyAction {
-    type: ActionTypes.GetSiteKey;
-}
-
-export interface RecievedSiteKeyAction {
-    type: ActionTypes.RecievedSiteKey;
-    sitekey: string;
-}
-
 export const ActionCreators = {
-    GetEmail: (code) => (dispatch) => {
+    GetEmail: (code: string | null = null) => (dispatch) => {
         dispatch({ type: ActionTypes.Get, code } as GetEmailAction);
     },
-    GetSiteKey: () => (dispatch) => {
-        dispatch({type: ActionTypes.GetSiteKey} as GetSiteKeyAction);
+    SetEmail: (email: string) => (dispatch) => {
+        dispatch({ type: ActionTypes.Set, email } as SetEmailAction);
     },
 };
