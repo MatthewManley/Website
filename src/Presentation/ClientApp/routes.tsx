@@ -6,7 +6,7 @@ import FetchData from "./components/FetchData";
 import Home from "./components/Home";
 import { Layout } from "./components/Layout";
 import { Projects } from "./components/Projects";
-import { BoundSquareRoots } from "./components/SquareRoots";
+import { SquareRoots } from "./components/SquareRoots/index";
 import { Wip } from "./components/Wip";
 
 export const routes = (
@@ -16,6 +16,6 @@ export const routes = (
         <Route path="/fetchdata/:startDateIndex?" component={FetchData} />
         <Route path="/contact" component={BoundContact} />
         <Route path="/projects" component={Projects} />
-        <Route path="/BabylonianSquareRoots" component={BoundSquareRoots} />
+        <Route path="/BabylonianSquareRoots" component={SquareRoots} />
     </Layout>
 );

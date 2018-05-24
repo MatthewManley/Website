@@ -18,7 +18,10 @@
         "ordered-imports": {
             "severity": "warning"
         },
-        "no-console":false
+        "no-console":false,
+        "object-literal-sort-keys": {
+            "severity": "warning"
+        }
     },
     "rulesDirectory": []
 }
