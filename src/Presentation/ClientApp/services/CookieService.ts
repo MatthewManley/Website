@@ -1,6 +1,6 @@
-export const GetCookie = (name: string): string | null => {
+export const GetCookie = (name: string): string | undefined => {
     if (typeof document === "undefined") {
-        return null;
+        return undefined;
     }
 
     const value = "; " + document.cookie;
@@ -8,16 +8,16 @@ export const GetCookie = (name: string): string | null => {
     if (parts.length === 2) {
         const last = parts.pop();
         if (last === undefined) {
-            return null;
+            return undefined;
         }
-        return last.split(";").shift() || null;
+        return last.split(";").shift() || undefined;
     }
-    return null;
+    return undefined;
 };
 
 export const SetCookie = (name: string, value: string): void => {
     if (typeof document === "undefined") {
         return;
     }
-    document.cookie = name + "=" + value + "; path=/; Secure; SameSite=Strict;";
+    document.cookie = name + "=" + value + "; path=/; SameSite=Strict;";
 };

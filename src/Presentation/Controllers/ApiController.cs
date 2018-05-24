@@ -33,10 +33,15 @@ namespace Presentation.Controllers
             return BadRequest();
         }
 
-        [Route("sitekey")]
-        public IActionResult SiteKey()
+        [Route("referredemail")]
+        public IActionResult ReferredEmail(string referral)
         {
-            return Ok(_appSettings.ReCaptcha.SiteKey);
+            var code = _appSettings.Referrals.FirstOrDefault(x => x.Code == referral);
+            if (code == null)
+            {
+                return BadRequest();
+            }
+            return Ok(code.Email);
         }
     }
 }

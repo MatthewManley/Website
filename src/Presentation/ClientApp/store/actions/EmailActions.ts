@@ -5,7 +5,7 @@ export enum ActionTypes {
 
 export interface GetEmailAction {
     type: ActionTypes.Get;
-    code: string | null;
+    code: string | undefined;
 }
 
 export interface SetEmailAction {
@@ -14,7 +14,7 @@ export interface SetEmailAction {
 }
 
 export const ActionCreators = {
-    GetEmail: (code: string | null = null) => (dispatch) => {
+    GetEmail: (code: string | undefined = undefined) => (dispatch) => {
         dispatch({ type: ActionTypes.Get, code } as GetEmailAction);
     },
     SetEmail: (email: string) => (dispatch) => {

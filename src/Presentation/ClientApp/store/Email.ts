@@ -2,7 +2,7 @@ import { Action, Reducer } from "redux";
 import { ActionTypes, SetEmailAction } from "./actions/emailActions";
 
 export interface EmailState {
-    email: string | null;
+    email: string | undefined;
 }
 
 export const reducer: Reducer<EmailState> = (state: EmailState, incomingAction: Action) => {
@@ -12,5 +12,5 @@ export const reducer: Reducer<EmailState> = (state: EmailState, incomingAction: 
             return { ...state, email: action.email } as EmailState;
         }
     }
-    return state || { email: null } as EmailState;
+    return state || { email: undefined } as EmailState;
 };

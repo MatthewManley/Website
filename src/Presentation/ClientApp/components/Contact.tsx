@@ -27,7 +27,7 @@ const ContactInfo = ({ email }) => (
 );
 
 const Contact = ({ siteKey, email, onValidate }: { siteKey: string, email: string, onValidate: () => void }) => {
-    if (email !== null && email.length > 0) {
+    if (email !== undefined && email.length > 0) {
         return (<ContactInfo email={email} />);
     } else {
         return (<RecaptchaMarkup siteKey={siteKey} onValidate={onValidate} />);
@@ -44,7 +44,7 @@ export const BoundContact = compose<{ siteKey, email, onValidate }, {}>(
             const props: any = this.props;
             const { email, GetEmail } = props;
 
-            if (email !== null && email.length > 0) {
+            if (email !== undefined && email.length > 0) {
                 return;
             }
             GetEmail();
