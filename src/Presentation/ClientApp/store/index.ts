@@ -1,7 +1,7 @@
 import * as Counter from "./Counter";
 import * as Email from "./Email";
-import * as WeatherForecasts from "./WeatherForecasts";
 import * as SquareRoot from "./SquareRoot";
+import * as WeatherForecasts from "./WeatherForecasts";
 
 // The top-level state object
 export interface ApplicationState {
