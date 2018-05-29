@@ -6,8 +6,8 @@
 }
 
 <environment include="Development">
-    <div id="react-app">Loading...</div>
-    <!-- <div id="react-app" asp-prerender-module="ClientApp/dist/main-server">Loading...</div> -->
+    <!-- <div id="react-app">Loading...</div> -->
+    <div id="react-app" asp-prerender-module="ClientApp/dist/main-server">Loading...</div>
 </environment>
 <environment include="Staging,Production">
     <div id="react-app" asp-prerender-module="ClientApp/dist/main-server">Loading...</div>

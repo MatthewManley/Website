@@ -19,5 +19,5 @@ export const SetCookie = (name: string, value: string): void => {
     if (typeof document === "undefined") {
         return;
     }
-    document.cookie = name + "=" + value + "; path=/; SameSite=Strict;";
+    document.cookie = name + "=" + value + "; path=/; secure; SameSite=Strict;";
 };

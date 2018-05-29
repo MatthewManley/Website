@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Domain;
 using Domain.Settings;
 using Implementations;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Services;
 
 namespace Presentation
@@ -29,6 +28,9 @@ namespace Presentation
             services.AddMvc();
             services.Configure<AppSettings>(Configuration);
             services.AddTransient<IRecaptchaVerifier, RecaptchaVerifier>();
+            services.AddSingleton<IHostedService, QueuedHostedService>();
+            services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
+            services.AddTransient<IRequestRepo, RequestRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
