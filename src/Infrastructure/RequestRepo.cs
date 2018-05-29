@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace Infrastructure
         public async Task Insert(string ip, string referrer, string useragent, DateTime time,
             CancellationToken cancellationToken)
         {
+            if (_appSettings.IgnoredUserAgents.Contains(useragent))
+            {
+                return;
+            }
+
             const string cmd = "INSERT INTO Requests (XForwardedFor, Referrer, UserAgent, Time) VALUES (@ip, @referrer, @useragent, @time);";
             using (var connection = new MySqlConnection(_appSettings.ConnectionString))
             using (var command = new MySqlCommand(cmd, connection))

@@ -37,7 +37,7 @@ namespace Presentation.Controllers
             }
             var cookieReferrer = Request.Cookies["referrer"];
             var referrer = queryReferrer ?? cookieReferrer;
-            var ip = Request.Headers["X-Forwarded-For"];
+            var ip = Request.HttpContext.Connection.RemoteIpAddress.ToString();
             var userAgent = Request.Headers.FirstOrDefault(x => x.Key.ToLower() == "user-agent").Value
                 .Aggregate((x, y) => x + ", " + y);
             _queue.QueueBackgroundWorkItem(async (token) =>

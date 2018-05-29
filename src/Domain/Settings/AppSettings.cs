@@ -6,5 +6,6 @@
         public string ContactEmail { get; set; }
         public Referral[] Referrals { get; set; }
         public string ConnectionString { get; set; }
+        public string[] IgnoredUserAgents { get; set; }
     }
 }
