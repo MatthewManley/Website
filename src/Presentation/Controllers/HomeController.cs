@@ -28,7 +28,8 @@ namespace Presentation.Controllers
                     Domain = Request.Host.Host,
                     Path = "/",
                     SameSite = SameSiteMode.Strict,
-                    Secure = _isProduction
+                    Secure = _isProduction,
+                    Expires = DateTimeOffset.Now.AddDays(90)
                 });
             }
             return View();

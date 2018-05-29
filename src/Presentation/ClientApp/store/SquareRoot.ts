@@ -1,5 +1,5 @@
 import { Action, Reducer } from "redux";
-import { ActionTypes, KnownAction } from "./actions/SquareRootActions";
+import { ActionTypes, KnownAction, SetNumberAction } from "./actions/SquareRootActions";
 
 export interface SquareRootState {
     num: number;
@@ -29,18 +29,23 @@ const InitalRandomNumber = () => {
     return Math.floor((Math.random() * 10000) * 100) / 100;
 };
 
-export const reducer: Reducer<SquareRootState> = (state: SquareRootState, action: Action) => {
-    const knownAction = action as KnownAction;
-    switch (knownAction.type) {
+export const reducer: Reducer<SquareRootState> = (state: SquareRootState, action: KnownAction) => {
+    switch (action.type) {
         case ActionTypes.SetNumber: {
-            const iterations: number[] = [knownAction.guess];
-            iterations.push(GenerateNext(knownAction.value, iterations[0]));
+            const iterations: number[] = [action.guess];
+            iterations.push(GenerateNext(action.value, iterations[0]));
             while (iterations[iterations.length - 1] !== iterations[iterations.length - 2]) {
-                iterations.push(GenerateNext(knownAction.value, iterations[iterations.length - 1]));
+                iterations.push(GenerateNext(action.value, iterations[iterations.length - 1]));
             }
-            return { num: knownAction.value, guess: knownAction.guess, iterations, compact: false } as SquareRootState;
+            return { num: action.value, guess: action.guess, iterations, compact: state.compact } as SquareRootState;
+        }
+        case ActionTypes.SetCompact: {
+            return { ...state, compact: action.value } as SquareRootState;
+        }
+        case ActionTypes.Reset: {
+            return { ...state, iterations: [] } as SquareRootState;
         }
     }
     const num = InitalRandomNumber();
-    return state || { num, guess: InitialGuess(num), iterations: [], compact: false } as SquareRootState;
+    return state || { num, guess: InitialGuess(num), iterations: [], compact: true } as SquareRootState;
 };
