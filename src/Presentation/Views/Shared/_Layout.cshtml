@@ -1,3 +1,8 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var googleId = Configuration["GoogleAnalyticsId"];
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +13,16 @@
 
     <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+    <environment include="Staging,Production">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=@googleId"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', '@googleId');
+        </script>
+    </environment>
 </head>
 <body id="page-top">
     @RenderBody()
