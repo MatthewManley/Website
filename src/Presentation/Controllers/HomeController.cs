@@ -12,13 +12,11 @@ namespace Presentation.Controllers
     {
         private readonly IBackgroundTaskQueue _queue;
         private readonly IRequestRepo _requestRepo;
-        private readonly bool _isProduction;
 
-        public HomeController(IHostingEnvironment env, IBackgroundTaskQueue queue, IRequestRepo requestRepo)
+        public HomeController(IBackgroundTaskQueue queue, IRequestRepo requestRepo)
         {
             _queue = queue;
             _requestRepo = requestRepo;
-            _isProduction = env.IsProduction();
         }
 
         public IActionResult Index()
@@ -31,7 +29,7 @@ namespace Presentation.Controllers
                     Domain = Request.Host.Host,
                     Path = "/",
                     SameSite = SameSiteMode.Strict,
-                    Secure = _isProduction,
+                    Secure = true,
                     Expires = DateTimeOffset.Now.AddDays(90)
                 });
             }

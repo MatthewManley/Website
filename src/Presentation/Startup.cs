@@ -10,14 +10,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace Presentation
 {
     public class Startup
     {
-        private readonly IHostingEnvironment env;
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment env;
 
-        public Startup(IHostingEnvironment environment, IConfiguration configuration)
+        public Startup(Microsoft.AspNetCore.Hosting.IHostingEnvironment environment, IConfiguration configuration)
         {
             env = environment;
             Configuration = configuration;
@@ -28,7 +31,7 @@ namespace Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<AppSettings>(Configuration);
             services.AddTransient<IRecaptchaVerifier, RecaptchaVerifier>();
             services.AddSingleton<IHostedService, QueuedHostedService>();

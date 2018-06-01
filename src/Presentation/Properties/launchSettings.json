@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:59799/",
-      "sslPort": 0
+      "sslPort": 44384
     }
   },
   "profiles": {
@@ -21,7 +21,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://test.matthewmanley.com:80/"
+      "applicationUrl": "http://localhost:59803/"
     }
   }
 }
