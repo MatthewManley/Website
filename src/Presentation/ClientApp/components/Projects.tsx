@@ -8,6 +8,9 @@ export const Projects = () => (
             <h2>This Website</h2>
             <h5><a href="https://github.com/MatthewManley/Website/">GitHub</a></h5>
             <p>This website was created using C#, ASPNET Core, React, JSX.</p>
+
+            <h5>Random Web Projects</h5>
+            <NavLink exact to={"/BabylonianSquareRoots"}>Babylonian Square Roots</NavLink>
         </Section>
         <Section title="hackathons" isDark={true}>
             <h2>UC Revolution Hackathons</h2>

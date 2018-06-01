@@ -47,5 +47,5 @@ export const reducer: Reducer<SquareRootState> = (state: SquareRootState, action
         }
     }
     const num = InitalRandomNumber();
-    return state || { num, guess: InitialGuess(num), iterations: [], compact: true } as SquareRootState;
+    return state || { num, guess: InitialGuess(num), iterations: [], compact: false } as SquareRootState;
 };

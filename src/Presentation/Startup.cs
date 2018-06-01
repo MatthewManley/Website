@@ -15,8 +15,11 @@ namespace Presentation
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment env;
+
+        public Startup(IHostingEnvironment environment, IConfiguration configuration)
         {
+            env = environment;
             Configuration = configuration;
         }
 
@@ -31,10 +34,18 @@ namespace Presentation
             services.AddSingleton<IHostedService, QueuedHostedService>();
             services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
             services.AddTransient<IRequestRepo, RequestRepo>();
+            if (env.IsDevelopment())
+            {
+                services.AddNodeServices(options =>
+                {
+                    options.LaunchWithDebugging = true;
+                    options.DebuggingPort = 9229;
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             if (env.IsDevelopment())
             {
@@ -48,12 +59,12 @@ namespace Presentation
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+                app.UseForwardedHeaders(new ForwardedHeadersOptions
+                {
+                    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+                });
+            }
 
             app.UseAuthentication();
 

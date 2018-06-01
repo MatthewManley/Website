@@ -5,11 +5,13 @@ import { BoundSelectANumber } from "./SelectANumber";
 import { BoundShowSteps } from "./ShowSteps";
 
 const SquareRoots = ({ num, guess, iterations, compact }) => {
-    if (iterations.length === 0) {
-        return <BoundSelectANumber />;
+    if (iterations && iterations.length > 0) {
+        return (
+            <BoundShowSteps />
+        );
     }
     return (
-        <BoundShowSteps />
+        <BoundSelectANumber />
     );
 };
 

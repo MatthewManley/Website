@@ -48,7 +48,7 @@ const ShowSteps = ({ num, guess, iterations, compact, Reset, onSetCompact }) => 
     </div>
 );
 
-export const BoundShowSteps = compose<any, any>(
+export const BoundShowSteps = compose<{ num, guess, iterations, compact, Reset, onSetCompact }, {}>(
     connect(
         (state: ApplicationState) => (state.squareRoot),
         SquareRootActions,

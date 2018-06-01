@@ -23,22 +23,14 @@ const SelectANumber = ({ inputNumber, onUpdateInputNumber, guess, onUpdateGuess,
     </div>
 );
 
-export const BoundSelectANumber = compose<any, any>(
+export const BoundSelectANumber = compose<{ inputNumber, onUpdateInputNumber, guess, onUpdateGuess, autoGuess, onUpdateAutoGuess, onCalculateSqrt }, {}>(
     connect(
-        (state: ApplicationState) => ({ num: state.squareRoot.num }),
+        (state: ApplicationState) => ({ num: state.squareRoot.num, guess: state.squareRoot.guess }),
         SquareRootActions,
     ),
-    withState("autoGuess", "updateAutoGuess", false),
-    withState("inputNumber", "updateInputNumber", 0),
-    withState("guess", "updateGuess", 0),
-    lifecycle({
-        componentWillMount() {
-            const props: any = this.props;
-            const { num, updateInputNumber, updateGuess } = props;
-            updateInputNumber(num);
-            updateGuess(InitialGuess(num));
-        },
-    }),
+    withState("autoGuess", "updateAutoGuess", true),
+    withState("inputNumber", "updateInputNumber", ({ num }: any) => (num)),
+    withState("guess", "updateGuess", ({ guess }: any) => (guess)),
     withHandlers({
         onCalculateSqrt: ({ SetNumber, inputNumber, guess, inputIterationCount }: any) => () => {
             SetNumber(parseFloat(inputNumber), parseFloat(guess), inputIterationCount);
