@@ -13,6 +13,7 @@ using Services;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using StackExchange.Redis;
 
 namespace Presentation
 {
@@ -29,7 +30,7 @@ namespace Presentation
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public async void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<AppSettings>(Configuration);
@@ -37,6 +38,11 @@ namespace Presentation
             services.AddSingleton<IHostedService, QueuedHostedService>();
             services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
             services.AddTransient<IRequestRepo, RequestRepo>();
+            services.AddTransient<ICounterRepository, CounterRepository>();
+
+            services.AddSingleton<IConnectionMultiplexer>(provider => ConnectionMultiplexer.Connect("localhost"));
+
+
             if (env.IsDevelopment())
             {
                 services.AddNodeServices(options =>
