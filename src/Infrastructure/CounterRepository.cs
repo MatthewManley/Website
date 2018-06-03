@@ -57,16 +57,16 @@ namespace Infrastructure
             return result;
         }
 
-        public Task<long> IncrementValueAsync(string id = null)
+        public async Task<long> IncrementValueAsync(string id = null)
         {
             var key = ConvertKey(id);
-            return _database.StringIncrementAsync(key);
+            return await _database.StringIncrementAsync(key);
         }
 
-        public Task<long> DecrementValueAsync(string id = null)
+        public async Task<long> DecrementValueAsync(string id = null)
         {
             var key = ConvertKey(id);
-            return _database.StringDecrementAsync(key);
+            return await _database.StringDecrementAsync(key);
         }
     }
 }

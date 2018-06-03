@@ -1,14 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { compose, withHandlers } from "recompose";
+import { compose, withHandlers, lifecycle } from "recompose";
 import { ApplicationState } from "../store";
 import { actionCreators as counterActionCreators } from "../store/actions/counterActions";
+import * as SignalR from "@aspnet/signalr";
 
 const Counter = ({ count, increment, decrement }) => (
     <div>
         <h1>Counter</h1>
-
-        <p>This is a simple example of a React component.</p>
 
         <p>Current count: <strong>{count}</strong></p>
 
@@ -17,8 +16,15 @@ const Counter = ({ count, increment, decrement }) => (
     </div>
 );
 
-// Wire up the React component to the Redux store
-export default connect(
-    (state: ApplicationState) => state.counter, // Selects which state properties are merged into the component's props
-    counterActionCreators,                 // Selects which action creators are merged into the component's props
+export default compose<{ count, increment, decrement }, {}>(
+    connect(
+        (state: ApplicationState) => state.counter, // Selects which state properties are merged into the component's props
+        counterActionCreators,                 // Selects which action creators are merged into the component's props
+    ),
+    lifecycle({
+        componentWillMount() {
+            var props: any = this.props;
+            props.Initialize();
+        }
+    })
 )(Counter);

@@ -4,6 +4,7 @@ import { applyMiddleware, combineReducers, compose, createStore, GenericStoreEnh
 import thunk from "redux-thunk";
 import * as StoreModule from "./store";
 import { emailMiddleware } from "./store/middleware/emailMiddleware";
+import { signalRMiddleware } from "./store/middleware/SignalRMiddleware";
 
 export default function configureStore(history: History, initialState?: StoreModule.ApplicationState) {
     // Build middleware. These are functions that can process the actions before they reach the store.
@@ -11,7 +12,7 @@ export default function configureStore(history: History, initialState?: StoreMod
     // If devTools is installed, connect to it
     const devToolsExtension = windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__ as () => GenericStoreEnhancer;
     const createStoreWithMiddleware: any = compose(
-        applyMiddleware(thunk, routerMiddleware(history), emailMiddleware),
+        applyMiddleware(thunk, routerMiddleware(history), emailMiddleware, signalRMiddleware),
         devToolsExtension ? devToolsExtension() : <S>(next: StoreEnhancerStoreCreator<S>) => next,
     )(createStore);
 

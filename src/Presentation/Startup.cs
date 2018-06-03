@@ -13,6 +13,7 @@ using Services;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Presentation.Hubs;
 using StackExchange.Redis;
 
 namespace Presentation
@@ -41,6 +42,8 @@ namespace Presentation
             services.AddTransient<ICounterRepository, CounterRepository>();
 
             services.AddSingleton<IConnectionMultiplexer>(provider => ConnectionMultiplexer.Connect("localhost"));
+
+            services.AddSignalR();
 
 
             if (env.IsDevelopment())
@@ -78,6 +81,11 @@ namespace Presentation
             app.UseAuthentication();
 
             app.UseStaticFiles();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<CounterHub>("/counterhub");
+            });
 
             app.UseMvc(routes =>
             {
