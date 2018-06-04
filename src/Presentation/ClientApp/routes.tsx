@@ -12,7 +12,7 @@ import { Wip } from "./components/Wip";
 export const routes = (
     <Layout>
         <Route exact path="/" component={Home} />
-        <Route path="/counter" component={Counter} />
+        <Route path="/counter/:room?" component={Counter} />
         <Route path="/fetchdata/:startDateIndex?" component={FetchData} />
         <Route path="/contact" component={BoundContact} />
         <Route path="/projects" component={Projects} />

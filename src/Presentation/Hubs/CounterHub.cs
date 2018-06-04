@@ -17,34 +17,29 @@ namespace Presentation.Hubs
             _counterRepository = counterRepository;
         }
 
-        public async Task Get()
+        public async Task Join(string room = "")
         {
-            var count = await _counterRepository.GetValueAsync();
-            await Clients.Caller.SendAsync("UpdateCount", count);
+            var addToGroupTask = Groups.AddToGroupAsync(Context.ConnectionId, room);
+            var count = await _counterRepository.GetValueAsync(room);
+            await Task.WhenAll(
+                Clients.Caller.SendAsync("UpdateCount", count),
+                addToGroupTask);
         }
 
-        public async Task Increment()
+        public async Task Increment(string room = "")
         {
-            var decrementTask = _counterRepository.IncrementValueAsync();
-            var informOthersTask = Clients.Others.SendAsync("Increment");
-            var remaining = new[]
-            {
-                decrementTask,
-                informOthersTask
-            };
-            await Task.WhenAll(remaining);
+            await Task.WhenAll(
+                _counterRepository.IncrementValueAsync(room),
+                Clients.OthersInGroup(room).SendAsync("Increment")
+                );
         }
 
-        public async Task Decrement()
+        public async Task Decrement(string room = "")
         {
-            var decrementTask = _counterRepository.DecrementValueAsync();
-            var informOthersTask = Clients.Others.SendAsync("Decrement");
-            var remaining = new[]
-            {
-                informOthersTask,
-                decrementTask
-            };
-            await Task.WhenAll(remaining);
+            await Task.WhenAll(
+                _counterRepository.DecrementValueAsync(room),
+                Clients.OthersInGroup(room).SendAsync("Decrement")
+                );
         }
     }
 }

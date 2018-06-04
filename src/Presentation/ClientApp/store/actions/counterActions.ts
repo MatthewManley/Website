@@ -14,7 +14,7 @@ export enum ActionTypes {
 
 export interface IncrementCountAction { type: ActionTypes.Increment; }
 export interface DecrementCountAction { type: ActionTypes.Decrement; }
-export interface InitializeCountAction { type: ActionTypes.Initialize; }
+export interface InitializeCountAction { type: ActionTypes.Initialize; room: number | undefined; }
 export interface GetCountAction { type: ActionTypes.Get; }
 
 // Server Actions only dispatched by signalR middleware
@@ -37,8 +37,8 @@ export const actionCreators = {
     increment: (): AppThunkAction<KnownAction> => (dispatch) => {
         dispatch({ type: ActionTypes.Increment } as IncrementCountAction);
     },
-    Initialize: ():AppThunkAction<KnownAction> => (dispatch) => {
-        dispatch({ type: ActionTypes.Initialize } as InitializeCountAction);
+    Initialize: (room: string | undefined):AppThunkAction<KnownAction> => (dispatch) => {
+        dispatch({ type: ActionTypes.Initialize, room } as InitializeCountAction);
     },
     get: (): AppThunkAction<KnownAction> => (dispatch) => {
         dispatch({ type: ActionTypes.Get } as GetCountAction);

@@ -11,6 +11,7 @@ export const Projects = () => (
 
             <h5>Random Web Projects</h5>
             <NavLink exact to={"/BabylonianSquareRoots"}>Babylonian Square Roots</NavLink>
+            <br/>
             <NavLink exact to={"/Counter"}>Synced Counter</NavLink>
         </Section>
         <Section title="hackathons" isDark={true}>

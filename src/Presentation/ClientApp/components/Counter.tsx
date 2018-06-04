@@ -9,6 +9,8 @@ const Counter = ({ count, increment, decrement }) => (
     <div>
         <h1>Counter</h1>
 
+        <p>Open this page in another browser or on another device.</p>
+
         <p>Current count: <strong>{count}</strong></p>
 
         <button onClick={increment}>Increment</button>
@@ -24,7 +26,7 @@ export default compose<{ count, increment, decrement }, {}>(
     lifecycle({
         componentWillMount() {
             var props: any = this.props;
-            props.Initialize();
+            props.Initialize(props.match.params.room);
         }
     })
 )(Counter);

@@ -37,6 +37,7 @@ export const reducer: Reducer<SquareRootState> = (state: SquareRootState, action
             while (iterations[iterations.length - 1] !== iterations[iterations.length - 2]) {
                 iterations.push(GenerateNext(action.value, iterations[iterations.length - 1]));
             }
+            iterations.pop();
             return { num: action.value, guess: action.guess, iterations, compact: state.compact } as SquareRootState;
         }
         case ActionTypes.SetCompact: {
